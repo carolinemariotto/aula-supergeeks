@@ -5,24 +5,20 @@ import {
   Text,
   Button,
 } from 'react-native';
+import { computeWindowedRenderLimits } from 'react-native/Libraries/Lists/VirtualizeUtils';
 {/* STATE É MUTAVEL E O PROPS É UMA CARACTERISTICA IMUTAVEL*/}
 const App = () => {
-  const [name, setName] = useState('Tomate')
-  const [session, setSession] = useState({ number: 6, title: 'The batman' })
-  const [current, setCurrent] = useState(true)
 
-  const onClickHandler = () => {
-    setName('Otaku')
-    setSession({ number: 7, title: 'Jujust kaisen' })
-    setCurrent(false)
+  const [fofoca, setFofoca] = useState('nao estou sabendo')
+  const onClickHandler = ()=>{
+    setFofoca('a maria terminou o noivado e fugiu para minas com o kako')
   }
 
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>{name}</Text>
-      <Text style={styles.text}>Vim ver um filme na sessão {session.number} sobre {session.title}</Text>
-      <Text style={styles.text}>{current ? 'current session' : 'next session'}</Text>
-      <Button title='Update State' onPress={onClickHandler}></Button>
+      <Text style={styles.text}>Você está sabendo da fofoca</Text>
+      <Text style={styles.text}> {fofoca}</Text>
+      <Button title='me conta a fofoca' onPress={onClickHandler}></Button>
     </View>
   );
 };
