@@ -3,59 +3,85 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
-import { computeWindowedRenderLimits } from 'react-native/Libraries/Lists/VirtualizeUtils';
-{/* STATE É MUTAVEL E O PROPS É UMA CARACTERISTICA IMUTAVEL*/}
+
 const App = () => {
 
+  const [Items, setItems] = useState([
+    { key: 1, series: 'Riverdale', temp:4 },
+    { key: 2, series: 'Once Upon a time ' , temp:7},
+    { key: 3, series: 'Dinastia' , temp:5},
+    { key: 4, series: 'The walking dead', temp: 12},
+    { key: 5, series: 'Strange Things', temp: 4 },
+    { key: 6, series: 'The big bang theory' , temp:4},
+    { key: 7, series: 'Friends', temp: 5 },
+    { key: 8, series: 'Fuller House', temp: 7},
+    { key: 44, series: 'Greys Anatomy', temp: 15},
+    { key: 68, series: 'The good doctor', temp: 9 },
+    { key: 0, series: 'Flash', temp: 7},
+  ]);
+  const [Refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setItems([...Items, { key: 68, series: 'temp 9' }]);
+    setRefreshing(false);
+  }
+  {/*ESTE CÓDIGO SÓ ATUALIZA PELO CELULAR, ELE ADICIONA O ITEM 69 QUANDO FOR RECOMPILADO*/}
   return (
-    <View style={styles.body}>
-      <View style={styles.view1}>
-        <Text style={styles.text}>1</Text>
-      </View>
-      <View style={styles.view2}>
-      <Text style={styles.text}>2</Text>
-      </View>
-      <View style={styles.view3}>
-      <Text style={styles.text}>3</Text>
-      </View>
-    </View>
+    <ScrollView
+      style={styles.body}
+      refreshControl={
+        <RefreshControl
+          refreshing={Refreshing}
+          onRefresh={onRefresh}
+          colors={['#ff00ff']}
+        />
+      }
+    >
+      {
+        Items.map((object) => {
+          return (
+            <View style={styles.series} 
+                  key={object.key}
+               
+            >
+              <Text 
+                style={styles.text}
+               >
+                
+              nome da serie {object.series}
+              qtde de temporadas {object.temp}
+              
+              </Text>
+            </View>
+          )
+        })
+      }
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#0ff',
-    alignItems: "stretch",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+  },
+  item: {
+    margin: 10,
+    backgroundColor: '#4ae1fa',
     justifyContent: 'center',
-    flexDirection: 'column-reverse'
+    alignItems: 'center',
   },
   text: {
-    color: '#ffffff',
-    fontSize: 50,
+    color: '#000000',
+    fontSize: 45,
     fontStyle: 'italic',
     margin: 10,
   },
-  view1:{
-    flex: 1,
-    backgroundColor: '#00ffff',
-    alignItems: 'center',
-    justifyContent:'center',
-  },
-  view2:{
-    flex: 1,
-    backgroundColor: '#000fff',
-    alignItems: 'center',
-    justifyContent:'center',
-  },
-  view3:{
-    flex: 1,
-    backgroundColor: '#99ff',
-    alignItems: 'center',
-    justifyContent:'center',
-  }
 });
 
 export default App;
