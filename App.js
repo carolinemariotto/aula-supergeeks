@@ -1,40 +1,41 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-} from 'react-native';
+import React, {useEffect, useState} from 'react'
+import {SafeAreaView,View,FlatList, Image, Text} from 'react-native'
 
-const App = () => {
-  const [counter, setCounter] = useState(0);
+export default function App(){
+    const [pokemons, setPokemons ]= useState([])
+    useEffect(()=>{
+        fetch('https://pokeapi.co/api/v2/pokemon', {
+            method:'GET',
+            headers:{
+                'Accept':'application/json'
+            } 
+        })
+        .then(response=> response.json())
+        .then(date=>{
+            console.log(date)
+            setPokemons(date.results)
+        })
+    },[])
+    return(
+        <SafeAreaView>
+            <FlatList
+                data={pokemons}
+                keyExtractor={(pokemon)=> pokemon.name}
+                contentContainerStyle={{flexGrow:1}}
+                renderItem={PokemonShow}
+            />
+        </SafeAreaView>
+    )
+}
+function PokemonShow (item){
+    const {name,url} = item.item
+    const pokemonNumber = url.replace('https://pokeapi.co/api/v2/pokemon','')
+    const ImageUrl = 'https://cdn.traction.one/pokedex/pokemon'+pokemonNumber+'.png'
+    return(
+        <View Style={{flexDirection: 'row'}}>
+            <Image style={{width: 100, height:100}} source={{uri: ImageUrl.replace('/.png','.png')}}/>
+            <Text>{name}</Text>
+        </View>
+    )
+}
 
-  const onClickHandler = () => {
-    setCounter(counter + 1)
-  }
-
-  return (
-    <View style={styles.body}>
-      <Text style={styles.text}>{counter * 5}</Text>
-      <Button title='Add' onPress={onClickHandler}></Button>
-      <Text style={styles.text}>You clicked {counter} times</Text>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: '#0000ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontStyle: 'italic',
-    margin: 10,
-  },
-});
-
-export default App;
