@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {SafeAreaView,View,FlatList, Image, Text,StyleSheet} from 'react-native'
-
+import { TextoPrincipal, Quadro } from './Components/meusEstilos/styleStyledComponents'
+import { styles } from './Components/meusEstilos/styleRN'
 export default function App(){
     const [allMovies, setAllMovies] = useState ([])
     
@@ -9,7 +10,6 @@ export default function App(){
         //then vai transformar a resposta em um json 
         // then data vai transforma os dados mapeando o array 
     })
-
     fetch('https://ghibliapi.herokuapp.com/films')
     .then(response=>response.json())
     .then(data=> {
@@ -17,7 +17,6 @@ export default function App(){
             console.log(movie.title)
             console.log(movie.description)
             console.log(movie.release_date)
-            
         })
         setAllMovies(data);
     }).catch(err=>{
@@ -27,35 +26,25 @@ export default function App(){
     return(
         <View style={styles.body}>
             {/* flatlist exibe uma sequencia de imagens */}
-            <Text>Ghibli Movies</Text>
+            <TextoPrincipal >Ghibli Movies</TextoPrincipal>
         <FlatList 
             data={allMovies}
             renderItem={({item})=>
-                <View>
+                <Quadro style={styles.body}>
+                    <View style= {styles.quadro}>
+                    <View style= {styles.header} >
                     <Text style={styles.text}>{item.title} </Text>
+                    </View>
                     <Image
                         style={{width: 300, height: 500}}
                         source={{uri: item.image}}
                         />
-                </View>
+                    <Text style={styles.textData}>{item.release_date}</Text>
+                    </View>
+                </Quadro>
             }
         />
         </View>   
     )
-   
-
 }
-
-const styles = StyleSheet.create({
-    body: {
-        backgroundColor: "#9FFF",
-        alingItens: "center",
-    },
-
-    text: {
-        color: '#fff',
-        fontSize: 28,
-        fontSize:'italic'       
-    }
-});
 
