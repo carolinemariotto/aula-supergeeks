@@ -2,26 +2,28 @@ import React, {useEffect, useState} from 'react'
 import {SafeAreaView,View,FlatList, Image, Text,StyleSheet} from 'react-native'
 import { TextoPrincipal, Quadro } from './Components/meusEstilos/styleStyledComponents'
 import { styles } from './Components/meusEstilos/styleRN'
+import { MdBook } from "react-icons/md";
+import QuadroFinal from './Components/Quadro/Index';
 export default function App(){
-    const [allMovies, setAllMovies] = useState ([])
-    
-    useEffect (()=>{
-        //fetch busca os dados no site
-        //then vai transformar a resposta em um json 
-        // then data vai transforma os dados mapeando o array 
-    })
-    fetch('https://ghibliapi.herokuapp.com/films')
-    .then(response=>response.json())
-    .then(data=> {
-        data.forEach(movie=>{
-            console.log(movie.title)
-            console.log(movie.description)
-            console.log(movie.release_date)
-        })
-        setAllMovies(data);
-    }).catch(err=>{
-        console.log(err) //data em vez de movie por causa que arquivo do .then é uma variável chamada data 
-
+    const [allMovies,setAllMovie] = useState([])
+    const site = "https://ghibliapi.herokuapp.com"
+    useEffect(()=>{
+      // fetch busca os dados no site
+      // then response vai transformar a resposta em um json
+      // then data vai formatar os dados mapeando  o array
+      fetch(`${site}/films`)
+      .then(response=>response.json())
+      .then(data=>{
+          data.forEach(movie=>{
+              console.log(movie.title);
+              console.log(movie.description)
+              console.log(movie.release_date)
+              setAllMovie(movie)
+          })
+          setAllMovie(data);// data em vez de movie por causa qye i arquivo do .then é uma variavel chamada data, movie é no map
+      }).catch(err=>{
+          console.log(err)
+      })
     },[])
     return(
         <View style={styles.body}>
@@ -30,18 +32,10 @@ export default function App(){
         <FlatList 
             data={allMovies}
             renderItem={({item})=>
-                <Quadro style={styles.body}>
-                    <View style= {styles.quadro}>
-                    <View style= {styles.header} >
-                    <Text style={styles.text}>{item.title} </Text>
-                    </View>
-                    <Image
-                        style={{width: 300, height: 500}}
-                        source={{uri: item.image}}
-                        />
-                    <Text style={styles.textData}>{item.release_date}</Text>
-                    </View>
-                </Quadro>
+                <QuadroFinal 
+                    item={item}
+                    
+                />
             }
         />
         </View>   

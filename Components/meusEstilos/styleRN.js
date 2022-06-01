@@ -4,7 +4,13 @@ export const styles = StyleSheet.create({
       backgroundColor: '#4563BF',
       alignItems: 'center'
     },
-   
+    icon:{
+      width: 32,
+      height: 32,
+      position: "absolute",
+      top: 590,
+      
+    },
     text:{
       color:'#fff',
       fontSize: 22,
@@ -14,9 +20,9 @@ export const styles = StyleSheet.create({
     quadro:{
       width:350,
       backgroundColor: '#5670BF',
-      alignItems: 'center',
-      borderRadius:20,
-      height:600,
+      alignItems: 'center' ,
+     borderRadius:20,
+      height:630,
       marginBottom:20,
     },
     textData:{
