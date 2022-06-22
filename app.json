@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "appcarol",
+    "name": "Studio Ghibli",
     "slug": "appcarol",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#562fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,9 +21,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.carol.ghibli"
     },
     "web": {
       "favicon": "./assets/favicon.png"

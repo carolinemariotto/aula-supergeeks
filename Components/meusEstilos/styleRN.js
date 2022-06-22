@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
       width: 32,
       height: 32,
       position: "absolute",
-      top: 590,
+      top: 0,
       
     },
     text:{
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
       width:350,
       backgroundColor: '#5670BF',
       alignItems: 'center' ,
-     borderRadius:20,
+      borderRadius:20,
       height:630,
       marginBottom:20,
     },
@@ -39,6 +39,27 @@ export const styles = StyleSheet.create({
         height: 50, 
         justifyContent: 'center',
         margin: 5
-    }
+    },
+    textEscolhidoTitle:{
+      color: '#f0f',
+      fontSize: 50,
+      textAling: "center"
+    },
+    bodyEscolhido:{
+      backgroundColor: '#050840',
+      padding:10,
+      flex:1,
+      justifyContent: 'center',
+      fontFamily: 'Lobster-Regular'
 
+    },
+     boxDescription:{
+       marginTop:70,
+       padding: 10,
+       textAling: 'rgba(21, 5, 114, 0.481)',
+       borderRadius:8, 
+     },
+     boxTitle:{
+       marginTop:-250,
+     }
   });
